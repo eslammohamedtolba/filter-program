@@ -71,7 +71,42 @@ void Merge_Filter()
 //_________________________________________
 void Flip_Image()
 {
+    loadImage();
 
+    unsigned char image2[SIZE][SIZE];
+    
+    char x;
+    cout << "do you want to flip (h)orizontally or (v)ertically ?\n>>>> ";
+    cin >> x;
+    while(x != 'h' && x != 'v')
+    {
+        cout << "enter \'h\' or \'v\'\n>>>> ";
+        cin >> x;
+    }
+    
+    if(x == 'h')
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                image2[i][255-j] = image[i][j];
+            }   
+        }
+    }
+
+    else if(x == 'v')
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                image2[255-i][j] = image[i][j];
+            }
+        }
+    }
+    swap(image, image2);
+    saveImage();
 }
 //_________________________________________
 void DL_Image()
@@ -145,7 +180,7 @@ int main() {
 
         if(typefilter=='1'){
             BWFilter();
-            cout << "the black and white filter has been applied" << endl;
+            cout << "\nthe black and white filter has been applied  :)" << endl;
         }
         else if(typefilter=='2'){
             Invert_Filter();
@@ -155,6 +190,7 @@ int main() {
         }
         else if(typefilter=='4'){
             Flip_Image();
+            cout << "\nthe flip filter has been applied :)" << endl;
         }
         else if(typefilter=='5'){
             DL_Image();
