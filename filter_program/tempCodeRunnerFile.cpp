@@ -1,1 +1,0 @@
-C:\Users\remon\Desktop\assignment3\fruit
