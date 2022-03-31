@@ -1,4 +1,12 @@
-#include <iostream>//C:\Users\remon\Desktop\assignment3
+// FCI – Programming 1 – 2022 - Assignment 3
+// Program Name: xxxxxx.cpp
+// Last Modification Date: xx/xx/xxxx
+// Author1 and ID and Group: xxxxx xxxxx
+// eslam mohamed abdel azim ali and ID and Group: 20211013 group A
+// Author3 and ID and Group: xxxxx xxxxx
+// Teaching Assistant: xxxxx xxxxx
+// Purpose:..........
+#include <bits/stdc++.h>//C:\Users\remon\Desktop\assignment3
 #include <fstream>
 #include <cstring>
 #include <cmath>
@@ -156,9 +164,9 @@ void Save_image_to_file()
 //_________________________________________
 int main() {
     string imagefilename;
-    char typefilter;
+    char typefilter;bool boolean=true;
     cout<<"Ahlan ya user ya habibi\n";
-    while(true)
+    while(boolean)
     {
         cout << "\nPlease select a filter to apply or 0 to exit:\n"
                 "1- Black & White Filter\n"
@@ -177,52 +185,38 @@ int main() {
                 "0- Exit\n"
                 ">>>> ";
         cin>>typefilter;
-
-        if(typefilter=='1'){
-            BWFilter();
-            cout << "\nthe black and white filter has been applied  :)" << endl;
+        switch(typefilter)
+        {
+            case '1':BWFilter();
+                break;
+            case '2':Invert_Filter();
+                break;
+            case '3':Merge_Filter();
+                break;
+            case '4':Flip_Image();
+                break;
+            case '5':DL_Image();
+                break;
+            case '6':Rotate_Image();
+                break;
+            case '7':Detect_Image_Edges();
+                break;
+            case '8':Enlarge_Image();
+                break;
+            case '9':Shrink_Image();
+                break;
+            case 'a':Mirror_half_Image();
+                break;
+            case 'b':Shuffle_Image();
+                break;
+            case 'c':Blur_Image();
+                break;
+            case 's':Save_image_to_file();
+                break;
+            default:
+                boolean=false;
         }
-        else if(typefilter=='2'){
-            Invert_Filter();
-        }
-        else if(typefilter=='3'){
-            Merge_Filter();
-        }
-        else if(typefilter=='4'){
-            Flip_Image();
-            cout << "\nthe flip filter has been applied :)" << endl;
-        }
-        else if(typefilter=='5'){
-            DL_Image();
-        }
-        else if(typefilter=='6'){
-            Rotate_Image();
-        }
-        else if(typefilter=='7'){
-            Detect_Image_Edges();
-        }
-        else if(typefilter=='8'){
-            Enlarge_Image();
-        }
-        else if(typefilter=='9'){
-            Shrink_Image();
-        }
-        else if(typefilter=='a'){
-            Mirror_half_Image();
-        }
-        else if(typefilter=='b'){
-            Shuffle_Image();
-        }
-        else if(typefilter=='c'){
-            Blur_Image();
-        }
-        else if(typefilter=='s'){
-            Save_image_to_file();
-        }
-        else if(typefilter=='0'){
-            break;
-        }
-            
     }
           
 }
+
