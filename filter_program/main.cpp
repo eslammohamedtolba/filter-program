@@ -213,8 +213,10 @@ int main() {
                 break;
             case 's':Save_image_to_file();
                 break;
+            case '0':boolean=false;
+                break;
             default:
-                boolean=false;
+                cout<<"the choice you entered isn't correct ";
         }
     }
           
