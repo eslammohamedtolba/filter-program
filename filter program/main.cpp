@@ -53,9 +53,11 @@ void Save_image_to_file()
 
 }
 int main() {
-    string imagefilename;char typefilter;cin.ignore();
+    string imagefilename;
+    char typefilter;
     cout<<"Ahlan ya user ya habibi\n"
           "Please enter file name of the image to process:"<<endl;
+    cin.ignore();
     getline(cin,imagefilename);
     cout<<"Please select a filter to apply or 0 to exit:\n"
           "1- Black & White Filter\n"
