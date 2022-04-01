@@ -6,7 +6,7 @@
 // Author3 and ID and Group: xxxxx xxxxx
 // Teaching Assistant: xxxxx xxxxx
 // Purpose:..........
-#include <bits/stdc++.h>//C:\Users\remon\Desktop\assignment3\photographer
+#include <bits/stdc++.h>
 #include <fstream>
 #include <cstring>
 #include <cmath>
@@ -133,7 +133,7 @@ void Rotate_Image()
 }
 
 //_________________________________________
-void Detect_Image_Edges()//C:\Users\remon\Desktop\assignment3\photographer
+void Detect_Image_Edges()
 {
     loadImage();
 
@@ -157,7 +157,7 @@ void Detect_Image_Edges()//C:\Users\remon\Desktop\assignment3\photographer
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = 0; j < SIZE; j++)
-        {//image[i][j] == image[i+1][j] == image[i-1][j] == image[i][j+1] == image[i][j-1] == image[i+1][j-1] == image[i+1][j+1] == image[i-1][j-1] == image[i-1][j+1] == 0
+        {
             if(image[i][j] == 0 && (image[i+1][j] == 255 || image[i-1][j] == 255 || image[i][j+1] == 255 || image[i][j-1] == 255 || image[i+1][j-1] == 255 || image[i+1][j+1] == 255 || image[i-1][j-1] == 255 || image[i-1][j+1] == 255))
             {
                 image2[i][j] = 0;
