@@ -311,9 +311,9 @@ int main() {
             case '4':Flip_Image();
                 cout << "\nthe flip image filter has been applied  :)" << endl;
                 break;
-            case '5':DL_Image();
+            case '5':Rotate_Image();
                 break;
-            case '6':Rotate_Image();
+            case '6':DL_Image();
                 break;
             case '7':Detect_Image_Edges();
                 cout << "\nthe detect image edges filter has been applied  :)" << endl;
