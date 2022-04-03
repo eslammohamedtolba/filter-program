@@ -14,7 +14,8 @@
 using namespace std;
 
 unsigned char image[SIZE][SIZE];
-
+unsigned char image2[SIZE] [SIZE];
+unsigned char image3[SIZE] [SIZE];
 //_________________________________________
 void loadImage()
 {
@@ -64,6 +65,7 @@ void BWFilter()
             }
         }
     }
+    saveImage();
 }
 
 //_________________________________________
@@ -75,9 +77,32 @@ void Invert_Filter()
 //_________________________________________
 void Merge_Filter()
 {
-
+   char image_name [20];
+   char image2_name [20];
+   char image3_name [20];
+   cout << "Please Enter the image file name to load it : ";
+   cin  >>  image_name;
+   strcat (image_name , ".bmp");
+   readGSBMP (image_name , image);
+   //++++++++++++++++++++++++++++++++ 
+   cout << "Please enter the second image file name to merge it : ";
+   cin  >> image2_name;
+   strcat (image2_name , ".bmp");
+   readGSBMP (image2_name , image2);
+   //++++++++++++++++++++++++++++++++
+   for (int i = 0; i < SIZE; i++)
+   {
+      for (int j = 0; j < SIZE;j++)
+      {
+        image3[i][j] = (image[i][j] + image2[i][j])/4;
+      } 
+   }
+   //++++++++++++++++++++++++++++++++ 
+   cout << "Please enter the name of the image that you want to be saved with : ";
+   cin >> image3_name;
+   strcat (image3_name, ".bmp");
+   writeGSBMP(image3_name, image3);
 }
-
 //_________________________________________
 void Flip_Image()
 {
@@ -116,14 +141,37 @@ void Flip_Image()
         }
     }
     swap(image, image2);
+    saveImage();
 }
 
 //_________________________________________
 void DL_Image()
 {
-
+    loadImage();
+    int choice;
+    cout << "Type 1 if you want to Darken the image\n";
+    cout << "Type 2 if you want to Lighten the image\n";
+    cin >> choice;
+    if (choice == 1)
+    {
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++)
+            {
+                image[i][j] = image[i][j] - int(0.5 * image[i][j]);
+            }
+    }
+    }
+    else if (choice == 2)
+    {
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++)
+            {
+                image[i][j] =image[i][j] + 30 ;
+            }  
+            }
+    }
+    saveImage();  
 }
-
 //_________________________________________
 void Rotate_Image()
 {
@@ -170,6 +218,7 @@ void Detect_Image_Edges()
 
 
     swap(image, image2);
+    saveImage();
 }
 
 //_________________________________________
@@ -181,9 +230,30 @@ void Enlarge_Image()
 //_________________________________________
 void Shrink_Image()
 {
-
+   loadImage();
+   int measure;
+   cout << "Plz, Enter the number of measure that you want\n" << endl;
+   cout << "1. Type 2 to resize it to half." << endl;
+   cout << "2. Type 3 to resize it to third." << endl;
+   cout << "3. Type 4 to resize it to quarter." << endl;
+   cin >> measure;
+   if (measure == 2 || measure == 3 || measure == 4)
+   {
+      for (int i = 0; i < SIZE; i++)
+   {
+      for (int j = 0; j < SIZE; j++)
+      {
+         image[i/measure][j/measure] = image[i][j];
+         image[i][j] = 255;
+      }
+   }
+   saveImage();   
+   }
+   else
+   {
+      cout<< "Invalid input, only 2 or 3 or 4 :(";
+   }
 }
-
 //_________________________________________
 void Mirror_half_Image()
 {
@@ -252,6 +322,7 @@ void Mirror_half_Image()
     }
 
     swap(image, image2);
+    saveImage();
 }
 
 //_________________________________________
@@ -325,14 +396,10 @@ int main() {
                 break;
             case 'c':Blur_Image();
                 break;
-            case 's':saveImage();
-                break;
             case '0':boolean=false;
                 break;
             default:
                 cout<<"the choice you entered isn't correct ";
         }
-    }
-          
+    }       
 }
-
