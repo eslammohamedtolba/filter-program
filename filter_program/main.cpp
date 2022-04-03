@@ -334,7 +334,31 @@ void Shuffle_Image()
 //_________________________________________
 void Blur_Image()
 {
-
+     for (int blur = 0; blur < 5; blur++)
+   {
+      for (int i = 0; i < SIZE; i++)
+      {
+         for (int j = 2; j < SIZE; j++)
+         {
+            image[i][j - 1] = (image[i][j] + image[i][j-2])/2;  
+         }
+         for (int j = 0; j < SIZE; j++)
+         {
+            if (i == 0)
+            {
+               break;
+            }
+            image2[i - 1][j] = (image[i - 2][j] + image[i][j])/2; 
+         }
+      }
+      for (int i = 0; i < SIZE; i++)
+      {
+         for (int j = 0; j < SIZE; j++)
+         {
+            image[i][j] = image2[i][j];
+         }  
+      }  
+   }
 }
 
 //_________________________________________
