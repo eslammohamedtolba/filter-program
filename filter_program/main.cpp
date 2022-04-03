@@ -64,7 +64,6 @@ void BWFilter()
             }
         }
     }
-    saveImage();
 }
 
 //_________________________________________
@@ -117,7 +116,6 @@ void Flip_Image()
         }
     }
     swap(image, image2);
-    saveImage();
 }
 
 //_________________________________________
@@ -172,7 +170,6 @@ void Detect_Image_Edges()
 
 
     swap(image, image2);
-    saveImage();
 }
 
 //_________________________________________
@@ -255,7 +252,6 @@ void Mirror_half_Image()
     }
 
     swap(image, image2);
-    saveImage();
 }
 
 //_________________________________________
@@ -328,6 +324,8 @@ int main() {
             case 'b':Shuffle_Image();
                 break;
             case 'c':Blur_Image();
+                break;
+            case 's':saveImage();
                 break;
             case '0':boolean=false;
                 break;
