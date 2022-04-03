@@ -68,12 +68,18 @@ void BWFilter()
     saveImage();
 }
 
-//_________________________________________
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Invert_Filter()
 {
+    loadImage();
+    for (int i = 0; i < SIZE; i++) {
+    for (int j = 0; j< SIZE; j++) {
 
+        image[i][j]=255-image[i][j];
+        }
+    }
+    saveImage();
 }
-
 //_________________________________________
 void Merge_Filter()
 {
@@ -172,12 +178,26 @@ void DL_Image()
     }
     saveImage();  
 }
-//_________________________________________
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void rotatebyninteen(){
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = i; j < SIZE - i - 1; j++) {
+                int temp = image[i][j];
+                image[i][j] = image[SIZE - 1 - j][i];
+                image[SIZE - 1 - j][i] = image[SIZE - 1 - i][SIZE - 1 - j];
+                image[SIZE - 1 - i][SIZE - 1 - j] = image[j][SIZE - 1 - i];
+                image[j][SIZE - 1 - i] = temp;
+        }}}
 void Rotate_Image()
 {
-
+    loadImage();int choice;
+    cout<<"Do you want to Rotate (90), (180) or (360) degrees? >>> ";
+    cin>>choice;
+    for(int k=0;k<choice/90;k++){
+        rotatebyninteen();
+    }
+    saveImage();
 }
-
 //_________________________________________
 void Detect_Image_Edges()
 {
@@ -325,12 +345,59 @@ void Mirror_half_Image()
     saveImage();
 }
 
-//_________________________________________
-void Shuffle_Image()
+//----------------------------------------------------------------------------------------------------------------------------------------
+void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
 {
+    switch(choice)
+    {
+        case 1:i=0;repeatedj=0;row=SIZE/2;colunm=SIZE/2;
+            break;
+        case 2:i=0;repeatedj=SIZE/2;row=SIZE/2;colunm=SIZE;
+            break;
+        case 3:i=SIZE/2;repeatedj=0;row=SIZE;colunm=SIZE/2;
+            break;
+        case 4:i=SIZE/2;repeatedj=SIZE/2;row=SIZE;colunm=SIZE;
+            break;
+    }
+}
+char image2[SIZE][SIZE];
+void find_coordinates1(int choice,int k)
+{
+    int i,j,repeatedj,row,colunm,x,y,repeatedy;
+    find_coordinates2(choice,i,repeatedj,row,colunm);
+    switch(k)
+    {
+        case 1:x=0;repeatedy=0;
+            break;
+        case 2:x=0;repeatedy=SIZE/2;
+            break;
+        case 3:x=SIZE/2;repeatedy=0;
+            break;
+        case 4:x=SIZE/2;repeatedy=SIZE/2;
+            break;
+    }
+    for(;i<row;i++,x++){
+        for(j=repeatedj,y=repeatedy;j<colunm;j++,y++){
+            image[x][y]=image2[i][j];
+        }
+    }
 
 }
-
+void Shuffle_Image()
+{
+    loadImage();int choice;
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image2[i][j]=image[i][j];
+        }
+    }
+    cout<<"what is New order of quarters you want to be?"<<endl;
+    for(int k=1;k<=4;k++){
+        cin>>choice;
+        find_coordinates1(choice,k);
+    }
+    saveImage();
+}
 //_________________________________________
 void Blur_Image()
 {
