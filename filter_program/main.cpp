@@ -240,13 +240,6 @@ void Detect_Image_Edges()
     swap(image, image2);
     saveImage();
 }
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-void Enlarge_Image()
-{
-
-}
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void Shrink_Image()
 {
@@ -345,7 +338,7 @@ void Mirror_half_Image()
     saveImage();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------
 void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
 {
     switch(choice)
@@ -360,7 +353,7 @@ void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
             break;
     }
 }
-char image2[SIZE][SIZE];
+char image4[SIZE][SIZE];
 void find_coordinates1(int choice,int k)
 {
     int i,j,repeatedj,row,colunm,x,y,repeatedy;
@@ -378,7 +371,7 @@ void find_coordinates1(int choice,int k)
     }
     for(;i<row;i++,x++){
         for(j=repeatedj,y=repeatedy;j<colunm;j++,y++){
-            image[x][y]=image2[i][j];
+            image[x][y]=image4[i][j];
         }
     }
 
@@ -388,7 +381,7 @@ void Shuffle_Image()
     loadImage();int choice;
     for(int i=0;i<SIZE;i++){
         for(int j=0;j<SIZE;j++){
-            image2[i][j]=image[i][j];
+            image4[i][j]=image[i][j];
         }
     }
     cout<<"what is New order of quarters you want to be?"<<endl;
@@ -398,7 +391,36 @@ void Shuffle_Image()
     }
     saveImage();
 }
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------
+void Enlarge_Image()
+{
+    loadImage();
+    int choice,k=1;
+    cout<<"what do you want Which quarter to enlarge 1, 2, 3 or 4?"<<endl;
+    cin>>choice;
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image4[i][j]=image[i][j];
+        }
+    }
+    find_coordinates1(choice,k);
+
+    for(int k=0,i=0;i<SIZE;k++,i+=2){
+        for(int z=0,j=0;j<SIZE;z++,j+=2){
+            image4[i][j]=image[k][z];
+            image4[i][j+1]=image[k][z];
+            image4[i+1][j]=image[k][z];
+            image4[i+1][j+1]=image[k][z];
+        }
+    }
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image[i][j]=image4[i][j];
+        }
+    }
+    saveImage();
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------
 void Blur_Image()
 {
      for (int blur = 0; blur < 5; blur++)
