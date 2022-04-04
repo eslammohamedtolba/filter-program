@@ -1,11 +1,11 @@
 // FCI – Programming 1 – 2022 - Assignment 3
-// Program Name: xxxxxx.cpp
-// Last Modification Date: xx/xx/xxxx
-// Author1 and ID and Group: xxxxx xxxxx
-// eslam mohamed abdel azim ali and ID and Group: 20211013 group A
+// Program Name: main.cpp
+// Last Modification Date: 04/04/2022
+// Author1 and ID and Group: remon atef mahrows daniel, 20210141, group A
+// Author2 and ID and Group: eslam mohamed abdel azim ali, 20211013, group A
 // Author3 and ID and Group: xxxxx xxxxx
 // Teaching Assistant: xxxxx xxxxx
-// Purpose:..........
+// Purpose: applt filters  to gray (256 * 256) images
 #include <bits/stdc++.h>
 #include <fstream>
 #include <cstring>
