@@ -3,8 +3,8 @@
 // Last Modification Date: 04/04/2022
 // Author1 and ID and Group: remon atef mahrows daniel, 20210141, group A
 // Author2 and ID and Group: eslam mohamed abdel azim ali, 20211013, group A
-// Author3 and ID and Group: xxxxx xxxxx
-// Teaching Assistant: xxxxx xxxxx
+// Author3 and ID and Group: seifeldeen mohamed ahmed mohamed, 20210168, group A
+// Teaching Assistant: Eng.Afaf Abelmonem
 // Purpose: applt filters  to gray (256 * 256) images
 #include <bits/stdc++.h>
 #include <fstream>
@@ -172,7 +172,10 @@ void DL_Image()
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++)
             {
-                image[i][j] =image[i][j] + 30 ;
+               if (image[i][j] + image[i][j]/2 > 255)
+                {
+                     image[i][j] = 255;  
+                }
             }  
             }
     }
