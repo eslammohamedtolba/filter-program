@@ -82,11 +82,11 @@ void Invert_Filter()
     
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Merge_Filter()
-{
-   char image_name [20];
-   char image2_name [20];
-   char image3_name [20];
+void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
+{                          
+   char image_name [20];   // 1- The first photo which the user wants to load. 
+   char image2_name [20];  // 2- The second photo which the user wants to load and merge it with the first image.
+   char image3_name [20];  // 3- The file name of the merged image between the first and second image.
    cout << "Please Enter the image file name to load it : ";
    cin  >>  image_name;
    strcat (image_name , ".bmp");
@@ -101,7 +101,7 @@ void Merge_Filter()
    {
       for (int j = 0; j < SIZE;j++)
       {
-        image3[i][j] = (image[i][j] + image2[i][j])/4;
+        image3[i][j] = (image[i][j] + image2[i][j])/4; // Here we mix the two images and get the average to show both of them as every pixel will lighten its color.
       } 
    }
    //------------------------------------------------------
@@ -152,7 +152,7 @@ void Flip_Image()
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-void DL_Image()
+void DL_Image()       // In this Function we will ask the user if he/she wants to Darken or Lighten the image.
 {
     
     int choice;
@@ -164,7 +164,7 @@ void DL_Image()
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++)
             {
-                image[i][j] = image[i][j] - int(0.5 * image[i][j]);
+                image[i][j] = image[i][j] - int(0.5 * image[i][j]);  // Here we should get close to the dark colors so we should decrease every pixels color to the half.
             }
     }
     }
@@ -173,7 +173,7 @@ void DL_Image()
         for (int i = 0; i < SIZE; i++){
             for (int j = 0; j < SIZE; j++)
             {
-               if (image[i][j] + image[i][j]/2 > 255)
+               if (image[i][j] + image[i][j]/2 > 255) // The lighten is the opposite of the darken function as we want to increase every pixel's color be light.
                 {
                      image[i][j] = 255;  
                 }
@@ -254,18 +254,18 @@ void Shrink_Image()
    
    int measure;
    cout << "Plz, Enter the number of measure that you want\n" << endl;
-   cout << "1. Type 2 to resize it to half." << endl;
+   cout << "1. Type 2 to resize it to half." << endl;      
    cout << "2. Type 3 to resize it to third." << endl;
    cout << "3. Type 4 to resize it to quarter." << endl;
    cin >> measure;
-   if (measure == 2 || measure == 3 || measure == 4)
+   if (measure == 2 || measure == 3 || measure == 4)     // we made a variable called (measure) and the user should choose the size he/she wants.
    {
       for (int i = 0; i < SIZE; i++)
    {
       for (int j = 0; j < SIZE; j++)
       {
-         image[i/measure][j/measure] = image[i][j];
-         image[i][j] = 255;
+         image[i/measure][j/measure] = image[i][j];      // Here we put the whole picture in the size that the user wants.
+         image[i][j] = 255;                             // Here we make the rest of the image after resizing it be white.
       }
    }
       
@@ -442,13 +442,13 @@ void Enlarge_Image()
 //-----------------------------------------------------------------------------------------------------------------------------------------
 void Blur_Image()
 {
-     for (int blur = 0; blur < 5; blur++)
+     for (int blur = 0; blur < 5; blur++) // This loop for repeating the process of blur (I made it 5 times and we can make it more than this but 5 times made nice blur)
    {
-      for (int i = 0; i < SIZE; i++)
+      for (int i = 0; i < SIZE; i++)     
       {
          for (int j = 2; j < SIZE; j++)
          {
-            image[i][j - 1] = (image[i][j] + image[i][j-2])/2;  
+            image[i][j - 1] = (image[i][j] + image[i][j-2])/2;  // Here we add the first pixel to the third pixel and store it in middle (for rows)
          }
          for (int j = 0; j < SIZE; j++)
          {
@@ -456,14 +456,14 @@ void Blur_Image()
             {
                break;
             }
-            image2[i - 1][j] = (image[i - 2][j] + image[i][j])/2; 
+            image2[i - 1][j] = (image[i - 2][j] + image[i][j])/2;  // Here we make the same process which we made with rows but with columns.
          }
       }
       for (int i = 0; i < SIZE; i++)
       {
          for (int j = 0; j < SIZE; j++)
          {
-            image[i][j] = image2[i][j];
+            image[i][j] = image2[i][j];   // we put the whole image in our blured image .
          }  
       }  
    }
