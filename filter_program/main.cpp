@@ -1,9 +1,9 @@
 // FCI – Programming 1 – 2022 - Assignment 3
 // Program Name: main.cpp
 // Last Modification Date: 04/04/2022
-// Author1 and ID and Group: remon atef mahrows daniel, 20210141, group A
-// Author2 and ID and Group: eslam mohamed abdel azim ali, 20211013, group A
-// Author3 and ID and Group: seifeldeen mohamed ahmed mohamed, 20210168, group A
+// Author1 and ID and Group: Remon atef mahrows daniel, 20210141, group A
+// Author2 and ID and Group: Eslam mohamed abdel azim ali, 20211013, group A
+// Author3 and ID and Group: Seifeldeen mohamed ahmed mohamed, 20210168, group A
 // Teaching Assistant: Eng.Afaf Abelmonem
 // Purpose: applt filters  to gray (256 * 256) images
 #include <bits/stdc++.h>
@@ -71,10 +71,11 @@ void BWFilter()
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Invert_Filter()
 {
-    
+    // this for loops to rotate on all pixels which in the photo 
     for (int i = 0; i < SIZE; i++) {
     for (int j = 0; j< SIZE; j++) {
-
+        
+        //this operation to make the percent of the pixel black becames white and vice versa
         image[i][j]=255-image[i][j];
         }
     }
@@ -183,8 +184,11 @@ void DL_Image()
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void rotatebyninteen(){
+        
+        // this for loops to rotate on all pixels which in the photo 
         for (int i = 0; i < SIZE / 2; i++) {
             for (int j = i; j < SIZE - i - 1; j++) {
+                //this operation to rotate the photo by 90 degree 
                 int temp = image[i][j];
                 image[i][j] = image[SIZE - 1 - j][i];
                 image[SIZE - 1 - j][i] = image[SIZE - 1 - i][SIZE - 1 - j];
@@ -196,6 +200,7 @@ void Rotate_Image()
     int choice;
     cout<<"Do you want to Rotate (90), (180) or (360) degrees? >>> ";
     cin>>choice;
+    // this for loop to take the number of rotates of 90 by divide the entered angle by 90 and by this we can rotate the photo for the user 
     for(int k=0;k<choice/90;k++){
         rotatebyninteen();
     }
@@ -344,6 +349,7 @@ void Mirror_half_Image()
 //----------------------------------------------------------------------------------------------------------------------------------------
 void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
 {
+    //this function to take the number of the photo quarter that the user wanted and makes the variables take the start and last of the quarter from row and colunm
     switch(choice)
     {
         case 1:i=0;repeatedj=0;row=SIZE/2;colunm=SIZE/2;
@@ -356,11 +362,14 @@ void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
             break;
     }
 }
+//this array to store the pixels of the image to exchange quarters between it and the photo 
 char image4[SIZE][SIZE];
 void find_coordinates1(int choice,int k)
 {
     int i,j,repeatedj,row,colunm,x,y,repeatedy;
     find_coordinates2(choice,i,repeatedj,row,colunm);
+    
+    //this switch to take the number of the quarter of the array that we wanted to fill it by photo pixels and make the variable take the start and last of row and colunm of quarter
     switch(k)
     {
         case 1:x=0;repeatedy=0;
@@ -372,6 +381,7 @@ void find_coordinates1(int choice,int k)
         case 4:x=SIZE/2;repeatedy=SIZE/2;
             break;
     }
+    //this for loop to fill the image by pixels in the array again 
     for(;i<row;i++,x++){
         for(j=repeatedj,y=repeatedy;j<colunm;j++,y++){
             image[x][y]=image4[i][j];
@@ -383,6 +393,7 @@ void Shuffle_Image()
 {
     
     int choice;
+    //this for loops to fill the array by the pixels of the image to make second copy of it
     for(int i=0;i<SIZE;i++){
         for(int j=0;j<SIZE;j++){
             image4[i][j]=image[i][j];
@@ -402,13 +413,16 @@ void Enlarge_Image()
     int choice,k=1;
     cout<<"what do you want Which quarter to enlarge 1, 2, 3 or 4?"<<endl;
     cin>>choice;
+    
+    //this for loops to fill the array by the pixels of the image to make second copy of it
     for(int i=0;i<SIZE;i++){
         for(int j=0;j<SIZE;j++){
             image4[i][j]=image[i][j];
         }
     }
     find_coordinates1(choice,k);
-
+    
+    //this for loops to make each pixel of the photo became 4 pixels in the array in its second filling to make the quarter of 64*64 became 256*256
     for(int k=0,i=0;i<SIZE;k++,i+=2){
         for(int z=0,j=0;j<SIZE;z++,j+=2){
             image4[i][j]=image[k][z];
@@ -417,6 +431,7 @@ void Enlarge_Image()
             image4[i+1][j+1]=image[k][z];
         }
     }
+    //to translate all pixels of the array to the image again
     for(int i=0;i<SIZE;i++){
         for(int j=0;j<SIZE;j++){
             image[i][j]=image4[i][j];
@@ -454,13 +469,16 @@ void Blur_Image()
    }
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-int main() {//C:\Users\remon\Desktop\assignment3\photographer
+int main() {
     string imagefilename;
     char typefilter;
     bool boolean=true, load_Image=true;
     cout<<"Ahlan ya user ya habibi :)\n";
+    
+    //this while to be available to the user to change on the photo more than once
     while(boolean)
     {
+        //this function to load second photo insead of the last photo when the user choose 
         if(load_Image)
         {
             loadImage();
