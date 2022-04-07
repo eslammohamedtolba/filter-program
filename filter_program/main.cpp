@@ -55,17 +55,16 @@ void BWFilter()
     {
         for (int j = 0; j < SIZE; j++)
         {
-            if(image[i][j] > 127)
+            if(image[i][j] > 127)//if pixel is bigger than average let it be white
             {
                 image[i][j] = 255;
             }
-            else
+            else // else make it black
             {
                 image[i][j] = 0;
             }
         }
-    }
-    
+    }    
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,7 +78,6 @@ void Invert_Filter()
         image[i][j]=255-image[i][j];
         }
     }
-    
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
@@ -132,7 +130,7 @@ void Flip_Image()
         {
             for (int j = 0; j < SIZE; j++)
             {
-                image2[i][255-j] = image[i][j];
+                image2[i][255-j] = image[i][j]; // that line flip the image horizontally
             }   
         }
     }
@@ -143,12 +141,11 @@ void Flip_Image()
         {
             for (int j = 0; j < SIZE; j++)
             {
-                image2[255-i][j] = image[i][j];
+                image2[255-i][j] = image[i][j];// that line flip the image vertically
             }
         }
     }
     swap(image, image2);
-    
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -178,10 +175,10 @@ void DL_Image()       // In this Function we will ask the user if he/she wants t
                      image[i][j] = 255;  
                 }
             }  
-            }
-    }
-      
+        }
+    } 
 }
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void rotatebyninteen(){
         
@@ -206,6 +203,7 @@ void Rotate_Image()
     }
     
 }
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void Detect_Image_Edges()
 {
@@ -213,7 +211,7 @@ void Detect_Image_Edges()
 
     unsigned char image2[SIZE][SIZE];
     
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++) //first turn the image to a black and white one
     {
         for (int j = 0; j < SIZE; j++)
         {
@@ -231,15 +229,15 @@ void Detect_Image_Edges()
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = 0; j < SIZE; j++)
-        {
+        { // if there is any white pixel around the pixel i am in its index
             if(image[i][j] == 0 && (image[i+1][j] == 255 || image[i-1][j] == 255 || image[i][j+1] == 255 || image[i][j-1] == 255 || image[i+1][j-1] == 255 || image[i+1][j+1] == 255 || image[i-1][j-1] == 255 || image[i-1][j+1] == 255))
             {
-                image2[i][j] = 0;
+                image2[i][j] = 0; // then turn it black
 
             }
             else
             {
-                image2[i][j] = 255;
+                image2[i][j] = 255; // else make it white
             }
         }   
     }
@@ -275,6 +273,7 @@ void Shrink_Image()
       cout<< "Invalid input, only 2 or 3 or 4 :(";
    }
 }
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Mirror_half_Image()
 {
@@ -295,11 +294,11 @@ void Mirror_half_Image()
         {
             for (int j = 0; j < SIZE/2; j++)
             {
-                image2[i][j] = image[i][j];
+                image2[i][j] = image[i][j]; // copy the left half
             }
             for (int j = SIZE/2, m = SIZE/2; j >= 0; j--, m++)
             {
-                image2[i][m] = image[i][j];
+                image2[i][m] = image[i][j]; // copy the left half on right half 
             }
         }
     }
@@ -309,11 +308,11 @@ void Mirror_half_Image()
         {
             for (int j = SIZE/2; j < SIZE; j++)
             {
-                image2[i][j] = image[i][j];
+                image2[i][j] = image[i][j]; // copy the right half
             }
             for (int j = 0, m = SIZE-1; j < SIZE/2; j++, m--)
             {
-                image2[i][j] = image[i][m];
+                image2[i][j] = image[i][m]; // copy the right half on left half 
             }
         }
 
@@ -324,8 +323,8 @@ void Mirror_half_Image()
         {
             for (int j = 0; j < SIZE; j++)
             {
-                image2[i][j] = image[i][j];
-                image2[255-i][j] = image[i][j];
+                image2[i][j] = image[i][j]; // copy the upper half
+                image2[255-i][j] = image[i][j]; // copy the upper half on the lower half 
             }
         }
 
@@ -336,8 +335,8 @@ void Mirror_half_Image()
         {
             for (int j = 0; j < SIZE; j++)
             {
-                image2[i][j] = image[i][j];
-                image2[255-i][j] = image[i][j];
+                image2[i][j] = image[i][j]; // copy the lower half
+                image2[255-i][j] = image[i][j]; // copy the lower half on the upper half 
             }
         }
     }
