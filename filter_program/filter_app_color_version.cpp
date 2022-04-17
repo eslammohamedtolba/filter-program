@@ -67,7 +67,41 @@ void BWFilter()
         }
     }    
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
+{
+    unsigned char image2[SIZE][SIZE][RGB];
+   unsigned char image3[SIZE][SIZE][RGB];                     
+   char image_name [20];   // 1- The first photo which the user wants to load. 
+   char image2_name [20];  // 2- The second photo which the user wants to load and merge it with the first image.
+   char image3_name [20];  // 3- The file name of the merged image between the first and second image.
+   cout << "Please Enter the image file name to load it : ";
+   cin  >>  image_name;
+   strcat (image_name , ".bmp");
+   readRGBBMP (image_name , image);
+   //++++++++++++++++++++++++++++++++ 
+   cout << "Please enter the second image file name to merge it : ";
+   cin  >> image2_name;
+   strcat (image2_name , ".bmp");
+   readRGBBMP (image2_name , image2);
+   //++++++++++++++++++++++++++++++++
+   for (int i = 0; i < SIZE; i++)
+   {
+      for (int j = 0; j < SIZE;j++)
+      {
+          for (int k = 0; k < RGB; k++)
+          {
+            image3[i][j][k] = (image[i][j][k] + image2[i][j][k])/4;
+          }          
+      } 
+   }
+   //------------------------------------------------------
+   cout << "Please enter the name of the image that you want to be saved with : ";
+   cin >> image3_name;
+   strcat (image3_name, ".bmp");
+   writeRGBBMP(image3_name, image3);
+   cout<<"The Merged Image has been saved successfully :)";
+}
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 void Flip_Image()
@@ -110,7 +144,43 @@ void Flip_Image()
     }
     swap(image, image2);
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+void DL_Image()       // In this Function we will ask the user if he/she wants to Darken or Lighten the image.
+{
+    int choice;
+    cout << "Type 1 if you want to Darken the image\n";
+    cout << "Type 2 if you want to Lighten the image\n";
+    cin >> choice;
+    if (choice == 1)
+    {
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB; k++)
+                {
+                    image[i][j][k] = image[i][j][k] - int(0.5 * image[i][j][k]);
+                }
+            }
+    }
+    }
+    else if (choice == 2)
+    {
+        {
+        for (int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++)
+            {
+                for (int k = 0; k < RGB; k++)
+                {
+                    if (image[i][j][k] + image[i][j][k]/2 > 255)
+                {
+                    image[i][j][k] = 255;  
+                }
+                }   
+            }  
+            }
+    }
+    } 
+}
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void Detect_Image_Edges()
 {
@@ -155,8 +225,34 @@ void Detect_Image_Edges()
     swap(image, image2);
     
 }
-
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Shrink_Image()
+{
+   int measure;
+   cout << "Plz, Enter the number of measure that you want\n" << endl;
+   cout << "1. Type 2 to resize it to half." << endl;      
+   cout << "2. Type 3 to resize it to third." << endl;
+   cout << "3. Type 4 to resize it to quarter." << endl;
+   cin >> measure;
+   if (measure == 2 || measure == 3 || measure == 4)// we made a variable called (measure) and the user should choose the size he/she wants.
+   {
+      for (int i = 0; i < SIZE; i++)
+   {
+      for (int j = 0; j < SIZE; j++)
+      {
+          for (int k = 0; k < RGB; k++)
+          {
+            image[i/measure][j/measure][k] = image[i][j][k];  
+            image[i][j][k] = 255;                             
+          }
+      }
+   }  
+   }
+   else
+   {
+      cout<< "Invalid input, only 2 or 3 or 4 :(";
+   }
+}
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Mirror_half_Image()
 {
@@ -245,8 +341,46 @@ void Mirror_half_Image()
     
 }
 
-
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Blur_Image()
+{
+    unsigned char image2[SIZE][SIZE][RGB];
+     for (int blur = 0; blur < 5; blur++) // This loop for repeating the process of blur (I made it 5 times and we can make it more than this but 5 times made nice blur)
+   {
+      for (int i = 0; i < SIZE; i++)     
+      {
+        for (int j = 2; j < SIZE; j++)
+        {
+            for (int k = 0; k < RGB; k++)
+            {
+                image[i][j - 1][k] = (image[i][j][k] + image[i][j-2][k])/2;
+            }   
+        }
+         for (int j = 0; j < SIZE; j++)
+         {
+             for (int k = 0; k < RGB; k++)
+             {
+                if (i == 0)
+            {
+               break;
+            }
+                image2[i - 1][j][k] = (image[i - 2][j][k] + image[i][j][k])/2;
+            }  
+         }
+      }
+      for (int i = 0; i < SIZE; i++)
+      {
+         for (int j = 0; j < SIZE; j++)
+        {
+             for (int k = 0; k < RGB; k++)
+             {
+                image[i][j][k] = image2[i][j][k];
+             }
+               
+        }  
+      }  
+   }
+}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 int main() {
     string imagefilename;
@@ -286,8 +420,8 @@ int main() {
                 cout << "\nthe black and white filter has been applied  :)" << endl;
                 break;
             case '2':Invert_Filter();
-                cout << "\nthe invert filter has been applied  :)" << endl;
-                break;
+               cout << "\nthe invert filter has been applied  :)" << endl;
+               break;
             case '3':Merge_Filter();
                 cout << "\nthe merge filter has been applied  :)" << endl;
                 break;
@@ -298,8 +432,8 @@ int main() {
                 cout << "\nthe darken and lighten filter has been applied  :)" << endl;
                 break;
             case '6':Rotate_Image();
-                cout << "\nthe rotate image filter has been applied  :)" << endl;
-                break;
+               cout << "\nthe rotate image filter has been applied  :)" << endl;
+               break;
             case '7':Detect_Image_Edges();
                 cout << "\nthe detect image edges filter has been applied  :)" << endl;
                 break;
