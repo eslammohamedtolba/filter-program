@@ -83,17 +83,12 @@ void Invert_Filter()
     }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
+void Merge_Filter() // In this Function, we will ask the user for 2 inputs:
 {
     unsigned char image2[SIZE][SIZE][RGB];
    unsigned char image3[SIZE][SIZE][RGB];                     
-   char image_name [20];   // 1- The first photo which the user wants to load. 
-   char image2_name [20];  // 2- The second photo which the user wants to load and merge it with the first image.
-   char image3_name [20];  // 3- The file name of the merged image between the first and second image.
-   cout << "Please Enter the image file name to load it : ";
-   cin  >>  image_name;
-   strcat (image_name , ".bmp");
-   readRGBBMP (image_name , image);
+   char image2_name [20];  // 1- The second photo which the user wants to load and merge it with the first image.
+   char image3_name [20];  // 2- The file name of the merged image between the first and second image.
    //++++++++++++++++++++++++++++++++ 
    cout << "Please enter the second image file name to merge it : ";
    cin  >> image2_name;
@@ -110,15 +105,17 @@ void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
           }          
       } 
    }
-   //------------------------------------------------------
-   cout << "Please enter the name of the image that you want to be saved with : ";
-   cin >> image3_name;
-   strcat (image3_name, ".bmp");
-   writeRGBBMP(image3_name, image3);
-   cout<<"The Merged Image has been saved successfully :)";
+   for (int i = 0; i < SIZE; i++)
+   {
+      for (int j = 0; j < SIZE;j++)
+      {
+          for (int k = 0; k < RGB; k++)
+          {
+            image[i][j][k] = image3[i][j][k];
+          }          
+      } 
+   }
 }
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-
 void Flip_Image()
 {
     unsigned char image2[SIZE][SIZE][RGB];
