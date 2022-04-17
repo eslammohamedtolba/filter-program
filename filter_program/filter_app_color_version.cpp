@@ -280,25 +280,44 @@ int main() {
                 "0- Exit\n"
                 ">>>> ";
         cin>>typefilter;
-        switch(typefilter)
+         switch(typefilter)
         {
             case '1':BWFilter();
                 cout << "\nthe black and white filter has been applied  :)" << endl;
                 break;
-
+            case '2':Invert_Filter();
+                cout << "\nthe invert filter has been applied  :)" << endl;
+                break;
+            case '3':Merge_Filter();
+                cout << "\nthe merge filter has been applied  :)" << endl;
+                break;
             case '4':Flip_Image();
                 cout << "\nthe flip image filter has been applied  :)" << endl;
                 break;
-            
+            case '5':DL_Image();
+                cout << "\nthe darken and lighten filter has been applied  :)" << endl;
+                break;
+            case '6':Rotate_Image();
+                cout << "\nthe rotate image filter has been applied  :)" << endl;
+                break;
             case '7':Detect_Image_Edges();
                 cout << "\nthe detect image edges filter has been applied  :)" << endl;
                 break;
-
-            case 'a':Mirror_half_Image();
-                cout << "\nthe mirror half image filter has been applied  :)" << endl;
+            case '8':Enlarge_Image();
+                cout << "\nthe enlarge image filter has been applied  :)" << endl;
                 break;
-
-
+            case '9':Shrink_Image();
+                cout << "\nthe shrink image filter has been applied  :)" << endl;
+                break;
+            case 'a':Mirror_half_Image();
+                cout << "\nthe mirror half filter has been applied  :)" << endl;
+                break;
+            case 'b':Shuffle_Image();
+                cout << "\nthe shuffle image filter has been applied  :)" << endl;
+                break;
+            case 'c':Blur_Image();
+                cout << "\nthe blur filter has been applied  :)" << endl;
+                break;
             case 's':saveImage();
                 cout << "\nyour image has been saved  :)" << endl;
                 load_Image = true;
