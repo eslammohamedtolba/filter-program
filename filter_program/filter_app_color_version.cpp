@@ -68,6 +68,21 @@ void BWFilter()
     }    
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+void Invert_Filter()
+{
+    // this for loops to rotate on all pixels which in the photo
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j< SIZE; j++) {
+            for(int f=0;f<RGB;f++){
+
+        //this operation to make the percent of the pixel black becames white and vice versa
+                image[i][j][f]=255-image[i][j][f];
+
+            }
+        }
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Merge_Filter() // In this Function, we will ask the user for 3 inputs:
 {
     unsigned char image2[SIZE][SIZE][RGB];
@@ -181,6 +196,34 @@ void DL_Image()       // In this Function we will ask the user if he/she wants t
     }
     } 
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void rotatebyninteen(){
+
+        // this for loops to rotate on all pixels which in the photo
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = i; j < SIZE - i - 1; j++) {
+                    for(int f=0;f<RGB;f++){
+                //this operation to rotate the photo by 90 degree
+                int temp = image[i][j][f];
+                image[i][j][f] = image[SIZE - 1 - j][i][f];
+                image[SIZE - 1 - j][i][f] = image[SIZE - 1 - i][SIZE - 1 - j][f];
+                image[SIZE - 1 - i][SIZE - 1 - j][f] = image[j][SIZE - 1 - i][f];
+                image[j][SIZE - 1 - i][f] = temp;
+                    }
+        }
+    }
+}
+void Rotate_Image()
+{
+    int choice;
+    cout<<"Do you want to Rotate (90), (180) or (360) degrees? >>> ";
+    cin>>choice;
+    // this for loop to take the number of rotates of 90 by divide the entered angle by 90 and by this we can rotate the photo for the user
+    for(int k=0;k<choice/90;k++){
+        rotatebyninteen();
+    }
+
+}
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void Detect_Image_Edges()
 {
@@ -224,6 +267,109 @@ void Detect_Image_Edges()
 
     swap(image, image2);
     
+}
+//----------------------------------------------------------------------------------------------------------------------------------------
+void find_coordinates2(int choice,int &i,int &repeatedj,int &row,int &colunm)
+{
+    //this function to take the number of the photo quarter that the user wanted and makes the variables take the start and last of the quarter from row and colunm
+    switch(choice)
+    {
+        case 1:i=0;repeatedj=0;row=SIZE/2;colunm=SIZE/2;
+            break;
+        case 2:i=0;repeatedj=SIZE/2;row=SIZE/2;colunm=SIZE;
+            break;
+        case 3:i=SIZE/2;repeatedj=0;row=SIZE;colunm=SIZE/2;
+            break;
+        case 4:i=SIZE/2;repeatedj=SIZE/2;row=SIZE;colunm=SIZE;
+            break;
+    }
+}
+//this array to store the pixels of the image to exchange quarters between it and the photo
+char image4[SIZE][SIZE][RGB];
+void find_coordinates1(int choice,int k)
+{
+    int i,j,repeatedj,row,colunm,x,y,repeatedy;
+    find_coordinates2(choice,i,repeatedj,row,colunm);
+
+    //this switch to take the number of the quarter of the array that we wanted to fill it by photo pixels and make the variable take the start and last of row and colunm of quarter
+    switch(k)
+    {
+        case 1:x=0;repeatedy=0;
+            break;
+        case 2:x=0;repeatedy=SIZE/2;
+            break;
+        case 3:x=SIZE/2;repeatedy=0;
+            break;
+        case 4:x=SIZE/2;repeatedy=SIZE/2;
+            break;
+    }
+    //this for loop to fill the image by pixels in the array again
+    for(;i<row;i++,x++){
+        for(j=repeatedj,y=repeatedy;j<colunm;j++,y++){
+                for(int f=0;f<RGB;f++){
+                    image[x][y][f]=image4[i][j][f];
+                }
+        }
+    }
+
+}
+void Shuffle_Image()
+{
+
+    int choice;
+    //this for loops to fill the array by the pixels of the image to make second copy of it
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+                for(int f=0;f<RGB;f++){
+            image4[i][j][f]=image[i][j][f];
+            }
+        }
+    }
+    cout<<"what is New order of quarters you want to be?"<<endl;
+    for(int k=1;k<=4;k++){
+        cin>>choice;
+        find_coordinates1(choice,k);
+    }
+
+}
+//----------------------------------------------------------------------------------------------------------------------------------------
+void Enlarge_Image()
+{
+
+    int choice,k=1;
+    cout<<"what do you want Which quarter to enlarge 1, 2, 3 or 4?"<<endl;
+    cin>>choice;
+
+    //this for loops to fill the array by the pixels of the image to make second copy of it
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+                 for(int f=0;f<RGB;f++){
+            image4[i][j][f]=image[i][j][f];
+                 }
+        }
+    }
+    find_coordinates1(choice,k);
+
+    //this for loops to make each pixel of the photo became 4 pixels in the array in its second filling to make the quarter of 64*64 became 256*256
+    for(int k=0,i=0;i<SIZE;k++,i+=2){
+        for(int z=0,j=0;j<SIZE;z++,j+=2){
+                for(int f=0;f<RGB;f++){
+            image4[i][j][f]=image[k][z][f];
+            image4[i][j+1][f]=image[k][z][f];
+            image4[i+1][j][f]=image[k][z][f];
+            image4[i+1][j+1][f]=image[k][z][f];
+                }
+        }
+    }
+    //to translate all pixels of the array to the image again
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+                for(int f=0;f<RGB;f++){
+            image[i][j][f]=image4[i][j][f];
+            }
+        }
+    }
+
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Shrink_Image()
